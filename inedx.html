@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        span{
+            color:gray ;
+        }
+        .row{
+            padding-top:5%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row" style="top: 50%;">
+        <div class="col-1"></div>
+        <div class="col-4 ml-5"><br><br><br>
+        <h2><span> Personal Budget Calculator </span> </h2> <br>
+        <img src="https://th.bing.com/th?id=OSK.HEROcLBRjxGnoHf7YhT245q4mUd5pkSjWXLTNMK5fZ8eTW4&w=472&h=280&c=1&rs=2&o=6&dpr=1.3&pid=SANGAM" alt="">
+        </div>
+        <div class="col-3">
+            <div id="result">
+            </div> 
+        </div> 
+        <div class="col-4 border border-1 border-light  m-5 bg-light rounded shadow w-25"> 
+            <input type="text" id="username" class="form-control my-3 rounded-pill" placeholder="Username" style="font-size: 16px;"> 
+            <input type="text" id="em" class="form-control my-3 rounded-pill" placeholder="Email" style="font-size: 16px;">
+            <input type="password" id="pass" class="form-control my-3 rounded-pill" placeholder="Password" style="font-size: 16px;">
+            <button id="reg" class="btn text-light form-control my-3 rounded-pill" onclick="register()" style="background-color: blue;font-size: 15px;">Register</button>
+        <br>
+            <center><a href="#" onclick="next()" style="text-decoration: none;color:blue;font-size:15px ;">Login</a></center> 
+        </div>
+     </div>
+</body>
+<script>
+    function next(){
+    document.getElementById("result").innerHTML=`
+                <div class="card border border-1 border-light rounded shadow m-5 p-5" style="width:25rem;"> <br>
+                <input type="text" id="uname" class="form-control my-3 rounded-pill" placeholder="Username" style="font-size: 16px;">
+                <input type="password" id="pass" class="form-control my-3 rounded-pill" placeholder="Password" style="font-size: 16px;">
+                <button id="login" onclick="login()" type="button" class="btn text-light form-control my-3 rounded-pill" style="background-color: blue;font-size: 15px;">Login</button>
+            <center><a href="#" style="text-decoration: none;color: blue;">Forget Password?  </a> </center>
+
+    </div>`
+    }
+    function register()
+    {
+        details={
+        uname:username.value,
+        email:em.value,
+        pswd: pass.value,
+
+    }
+    if(details.uname==""||details.em==""||details.pswd=="")
+    {
+        alert("please fill the all input fileds")
+    }
+    else
+    {
+        if(details.uname in localStorage)
+        {
+            alert("already registerd")
+        
+        }
+        else
+        {
+            localStorage.setItem(details.uname,JSON.stringify(details))
+            alert("Registration successful")
+            // window.location='./index3.html'
+        }
+    }
+    }
+
+    function login()
+        {
+            uname=uname.value;
+            pswd=pass.value;
+            if(uname in localStorage)
+            {
+            details=JSON.parse(localStorage.getItem(uname))
+            
+                // if(pswd==details.pswd)
+                // {
+                //     console.log(pswd);
+                //     alert("login successfull")
+                //     window.location='./index1.html'
+                // }
+                // else{
+                
+                // alert("Incorrect password")
+
+                // }
+                alert("login successfull")
+                window.location='./index1.html'
+
+            }
+            else
+            {
+                alert("Invalid Username number")
+            }
+           
+        }
+
+</script>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        nav,ul,a{
+            font-size:20px;
+            font-weight: bold;
+            
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm text-light stiky-top" style="background-color: gray;">
+
+        <div class="container-fluid">
+            <div class="navbar-header text-light">&nbsp;&nbsp;&nbsp;
+                <p style="font-size: 30px;"> <i>Balance</i></p>
+              </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <ul class="navbar-nav" style="align-items: end; color: white;">
+            <li class="nav-item">
+              <a class="nav-link active" style="color: white;" href="#">Home</a>
+            </li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="nav-item">
+                <a class="nav-link active" style="color: white;" href="#">Income</a>
+              </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <li class="nav-item">
+              <a class="nav-link active" style="color: white;" href="#">Expense</a>
+            </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <li class="nav-item">
+              <a class="nav-link active" style="color: white;" href="#">History</a>
+            </li>
+          </ul>
+          <button class="btn btn-outline-danger" onclick="logout()" type="button">Logout</button>
+        </div>
+      </nav> <br><br>
+
+      <div class="row">
+        <div class="col-4 border border-1 border-light  m-5 bg-light rounded shadow w-25">
+            <h2 style="color: green; text-align: center;">Add Income</h2>
+                <input type="text" id="type" class="form-control my-3 rounded-pill" placeholder="Enter Income Type" style="font-size: 16px;"> 
+                <input type="number" id="no" class="form-control my-3 rounded-pill" placeholder="Enter Amount" style="font-size: 16px;">
+                <button id="reg" class="btn text-success btn-outline-success  form-control my-3 rounded-pill" onclick="add()" style="font-size: 15px;">Add</button>
+        </div>
+        <div id="bala" class="col-4 border border-1 border-light  m-5   w-25" style="border-radius: 15%;"><br>
+        <!-- <p style="font-size: 25px; color: blue; text-align: center;"><b>Your Savings is: <br>${balance} </b></p> -->
+
+        </div>
+        <div class="col-4 border border-1 border-light  m-5 bg-light rounded shadow w-25">
+            <h2 style="color:red; text-align: center;">Add Expense</h2>
+                <input type="text" id="etype" class="form-control my-3 rounded-pill" placeholder="Enter Expense Type" style="font-size: 16px;"> 
+                <input type="number" id="eno" class="form-control my-3 rounded-pill" placeholder="Enter Amount" style="font-size: 16px;">
+                <button id="reg" class="btn text-danger btn-outline-danger  form-control my-3 rounded-pill" onclick="expence()" style="font-size: 15px;">Expense</button>
+        </div>
+      </div><br>
+      <div class="row">
+        <h2 style="text-align: center; color: gray;">Income & Expense Details</h2>
+        <div class="col-5 p-5">
+            <h2 style="color: green; text-align: center;">Income</h2>
+            <table class="table border border-2 p-5">
+             <thead>
+                    <tr>
+                     <th>Type</th>
+                     <th>Amount</th>
+                     <th>Balance</th>
+                    </tr>
+                    
+            </thead>
+            <tbody id="itable">
+                <!-- <tr>
+                    <td>${typ}</td>
+                    <td>${amnt}</td>
+                </tr> -->
+
+            </tbody>
+                
+            </table>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5"><br><br>
+            <h2 style="color:red; text-align: center;">Expense</h2>
+            <table class="table border border-2" >
+                <thead>
+                    <th>Type</th>
+                     <th>Amount</th>
+                     <th>Balance</th>
+                </thead>
+                <tbody id="etable">
+
+                </tbody>
+            </table>
+        </div>
+      </div>
+</body>
+
+<script>
+    balance=0;
+    function add()
+    {
+        // typ=type.value
+        // amnt=no.value
+        typ=document.getElementById("type").value
+        amnt=document.getElementById("no").value
+        amnt=Math.floor(amnt)
+        if(typ==""|| amnt=="")
+        {
+            alert("please fill the all input fileds")
+        }
+        else{
+        balance+=amnt
+        let totalbal=+balance
+        console.log("balance:"+balance);
+        console.log(totalbal);
+        alert("Income added successfully")
+        document.getElementById("bala").innerHTML=` <p style="font-size: 25px; color: blue; text-align: center;"><b>Your Savings is: <br>${totalbal} </b></p>`
+        document.getElementById("itable").innerHTML=` <tr>
+                    <td>${typ}</td>
+                    <td>${amnt}</td>
+                    <td>${totalbal}</td>
+                </tr>`
+        }
+
+    }
+    function expence()
+    {
+        // typ=type.value
+        // amnt=no.value
+        typ=document.getElementById("etype").value
+        amnt=document.getElementById("eno").value
+        amnt=Math.floor(amnt)
+        if(typ==""|| amnt=="")
+        {
+            alert("please fill the all input fileds")
+        }
+        else{
+            balance-=amnt
+       let totalbal=balance
+        console.log("balance:"+totalbal);
+        alert("Expense added successfully")
+        document.getElementById("bala").innerHTML=` <p style="font-size: 25px; color: blue; text-align: center;"><b>Your Savings is: <br>${totalbal} </b></p>`
+        document.getElementById("etable").innerHTML=` <tr>
+                    <td>${typ}</td>
+                    <td>${amnt}</td>
+                    <td>${totalbal}</td>
+                </tr>`
+        }
+
+    }
+    function logout()
+    {
+        localStorage.clear();
+        window.location='./index.html'
+
+
+    }
+</script>
+
+
+</html>
